@@ -1,0 +1,9 @@
+/*
+  Accept-Ch: sec-ch-ua-full-version-list, sec-ch-ua-platform-version, ect, rtt, downlink, device-memory, viewport-width, dpr
+  Accept-Ch-Lifetime: 86400
+  Strict-Transport-Security: max-age=47474747; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1;
+  Content-Security-Policy: upgrade-insecure-requests;
+  Vary: Content-Type, Accept-Encoding, User-Agent
