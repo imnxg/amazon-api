@@ -56,36 +56,36 @@ export const get = async ({
   }
 
   // Extracting the features
-  const featuresElement = ppd.querySelector("#feature-bullets ul");
+  const featuresElement = ppd.querySelector("#feature-bullets ul") || document.querySelector("h3.product-facts-title ~ ul.a-unordered-list") || document.querySelector("h3.product-facts-title + ul");
   const features = featuresElement
     ? (Array.from(featuresElement.children)
-        .map((child) => {
-          try {
-            const text = child.textContent?.trim();
-            if (!text) return null;
+      .map((child) => {
+        try {
+          const text = child.textContent?.trim();
+          if (!text) return null;
 
-            if (text.includes("】")) {
-              const [key, value] = text.split("】");
+          if (text.includes("】")) {
+            const [key, value] = text.split("】");
 
-              return {
-                key: key.replace("【", "")?.trim(),
-                value: value?.trim(),
-              };
-            } else if (text.includes(":")) {
-              const [key, value] = text.split(":");
-              return {
-                key: key?.trim(),
-                value: value?.trim(),
-              };
-            } else {
-              return {
-                key: "Description",
-                value: text,
-              };
-            }
-          } catch {}
-        })
-        .filter((s) => s) as { key: string; value: string }[])
+            return {
+              key: key.replace("【", "")?.trim(),
+              value: value?.trim(),
+            };
+          } else if (text.includes(":")) {
+            const [key, value] = text.split(":");
+            return {
+              key: key?.trim(),
+              value: value?.trim(),
+            };
+          } else {
+            return {
+              key: "Description",
+              value: text,
+            };
+          }
+        } catch { }
+      })
+      .filter((s) => s) as { key: string; value: string }[])
     : [];
 
   // Extracting the images
@@ -94,9 +94,9 @@ export const get = async ({
   ) as NodeListOf<HTMLImageElement>;
   const images = imageElements
     ? Array.from(imageElements)
-        .map((image) => image.src)
-        .filter((src) => src)
-        .map(createImageVariants)
+      .map((image) => image.src)
+      .filter((src) => src)
+      .map(createImageVariants)
     : [];
 
   // Extracting technical specifications
@@ -212,7 +212,7 @@ export const get = async ({
           gist,
           responses,
         };
-      } catch {}
+      } catch { }
     });
 
     ratingReview.insights.aspects = aspectButtons;
@@ -281,7 +281,7 @@ export const get = async ({
         reviewedBy: reviewedBy || "",
         reviewDate: objectDate.toISOString(),
       });
-    } catch {}
+    } catch { }
   });
 
   return {
